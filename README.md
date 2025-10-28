@@ -15,7 +15,7 @@ Ngoài pre-processing tool, thì annotation tool có 2 loại.
 
 1.  **Clone Repository:**
     ```bash
-    git clone https://github.com/nth4002/ABSA-Restaurant-Tool.git
+    git clone https://github.com/tranminhvu945/DS102.git
     cd ABSA-Hotel-Tool
     ```
 
