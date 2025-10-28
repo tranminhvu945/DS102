@@ -1,0 +1,8 @@
+emoji
+pandas
+requests
+scikit-learn
+streamlit
+flashtext
+optuna
+

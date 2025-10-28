@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aspect-based Sentiment Analysis Annotation Tool</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Sentiment Analysis Annotation Tool</h1>
+        <div class="progress-container">
+          <div id="progress-bar">
+            <div id="progress-fill"></div>
+          </div>
+          <span id="progress-text">0/0 Reviews</span>
+        </div>
+      </header>
+
+      <div class="import-section">
+        <div class="file-upload">
+          <label for="file-input" class="file-label">
+            <span class="file-icon">📁</span>
+            <span>Choose TXT File</span>
+          </label>
+          <input type="file" id="file-input" accept=".txt" />
+        </div>
+        <button class="btn primary" onclick="importAnnotations()">
+          Import
+        </button>
+        <div class="navigation-buttons">
+          <button class="btn secondary" onclick="prevReview()">
+            <span class="nav-icon">←</span> Previous
+          </button>
+          <button class="btn secondary" onclick="nextReview()">
+            Next <span class="nav-icon">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="review-container">
+        <div class="review-header">
+          <span id="review-number" class="review-badge">Review #N/A</span>
+        </div>
+        <textarea
+          id="review-input"
+          placeholder="Each review from your imported file will be displayed here"
+          readonly
+        ></textarea>
+      </div>
+
+      <div class="annotation-form">
+        <div class="form-section">
+          <h3>Entity</h3>
+          <div id="entity" class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="entity" value="hotel" />
+              <span class="radio-custom entity">Hotel</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="entity" value="rooms" />
+              <span class="radio-custom entity">Rooms</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="entity" value="room_amenities" />
+              <span class="radio-custom entity">Room_Amenities</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="entity" value="facilities" />
+              <span class="radio-custom entity">Facilities</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="entity" value="service" />
+              <span class="radio-custom entity">Service</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="entity" value="location" />
+              <span class="radio-custom entity">Location</span>
+            </label>
+                        <label class="radio-label">
+              <input type="radio" name="entity" value="food&drink" />
+              <span class="radio-custom entity">Food & Drink</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Attribute</h3>
+          <div id="attribute" class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="general" />
+              <span class="radio-custom attribute">General</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="prices" />
+              <span class="radio-custom attribute">Prices</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="design&features" />
+              <span class="radio-custom attribute">Design & Features</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="cleanliness" />
+              <span class="radio-custom attribute">Cleanliness</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="comfort" />
+              <span class="radio-custom attribute">Comfort</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="comfort" />
+              <span class="radio-custom attribute">Comfort</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="quality" />
+              <span class="radio-custom attribute">Quality</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="styles&options" />
+              <span class="radio-custom attribute">Style & Options</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attribute" value="miscellaneous" />
+              <span class="radio-custom attribute">Miscellaneous</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Sentiment</h3>
+          <div id="sentiment" class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="sentiment" value="positive" />
+              <span class="radio-custom sentiment positive">Positive</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="sentiment" value="negative" />
+              <span class="radio-custom sentiment negative">Negative</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="sentiment" value="neutral" />
+              <span class="radio-custom sentiment neutral">Neutral</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn primary" onclick="addAnnotations()">
+            Add Annotation
+          </button>
+          <button class="btn danger" onclick="clearAnnotations()">
+            Clear Annotations
+          </button>
+        </div>
+      </div>
+
+      <div class="annotations-container">
+        <h3>Annotations for this Review</h3>
+        <ul id="annotations-list"></ul>
+      </div>
+
+      <button class="btn success save-btn" onclick="saveReview()">
+        Save Review Annotations
+      </button>
+
+      <div class="dataset-container">
+        <div class="dataset-header">
+          <h3>Annotated Dataset</h3>
+          <button class="btn primary" onclick="downloadAnnotations()">
+            Download Dataset (JSON)
+          </button>
+        </div>
+        <div id="annotated-dataset"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
