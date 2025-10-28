@@ -1,6 +1,6 @@
-# Công Cụ Phân Tích Cảm Xúc Đa Khía Cạnh Nhà Hàng
+# Công Cụ Phân Tích Cảm Xúc Đa Khía Cạnh Khách Sạn
 
-Repo này chứa mã nguồn cho một ứng dụng web hỗ trợ phân tích cảm xúc đa khía cạnh (Aspect-Based Sentiment Analysis - ABSA) cho các đánh giá nhà hàng. Ứng dụng bao gồm các công cụ chính: Tiền xử lý dữ liệu, Gán nhãn dữ liệu, và Phân loại câu đơn. 
+Repo này chứa mã nguồn cho một ứng dụng web hỗ trợ phân tích cảm xúc đa khía cạnh (Aspect-Based Sentiment Analysis - ABSA) cho các đánh giá khách sạn. Ứng dụng bao gồm các công cụ chính: Tiền xử lý dữ liệu, Gán nhãn dữ liệu, và Phân loại câu đơn. 
 
 Ngoài pre-processing tool, thì annotation tool có 2 loại. 
 *  Manually Annotation Tool: gán nhãn thủ công được viết bằng html , js, css.
@@ -16,7 +16,7 @@ Ngoài pre-processing tool, thì annotation tool có 2 loại.
 1.  **Clone Repository:**
     ```bash
     git clone https://github.com/nth4002/ABSA-Restaurant-Tool.git
-    cd ABSA-Restaurant-Tool
+    cd ABSA-Hotel-Tool
     ```
 
 2.  **Cài đặt thư viện:**
@@ -35,5 +35,3 @@ Sử dụng Streamlit để chạy ứng dụng:
 ```bash
 streamlit run main.py
 ```
-## Video Demo Cach Su Dung Tool
-Link: [Demo](https://drive.google.com/file/d/1d5xbOJdWVT8MvvJTEn-7XgjABFRqKSYb/view?usp=sharing)
