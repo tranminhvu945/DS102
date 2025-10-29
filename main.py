@@ -14,14 +14,14 @@ from functools import partial
 # import emoji # already imported
 from flashtext import KeywordProcessor
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.metrics import f1_score as sklearn_f1_score # More specific import
 
 import hashlib # use file content hashing
 
 # --- Global Definitions and Setup ---
 st.set_page_config(
     page_title="ABSA Hotels",
-    page_icon="🍣"
+    page_icon="🏨",
+    layout="wide",
 )
 
 HASHTAG = 'hashtag'
@@ -85,13 +85,18 @@ except Exception as e:
     st.error(f"Error loading the model: {e}")
     st.stop()
 
+aspects = [
+    'hotel#general', 'hotel#prices', 'hotel#design&features', 'hotel#cleanliness', 'hotel#comfort', 'hotel#quality', 'hotel#miscellaneous',
+    'rooms#general', 'rooms#prices', 'rooms#design&features', 'rooms#cleanliness', 'rooms#comfort', 'rooms#quality', 'rooms#miscellaneous',
+    'room_amenities#general', 'room_amenities#prices', 'room_amenities#design&features', 'room_amenities#cleanliness', 'room_amenities#comfort', 'room_amenities#quality', 'room_amenities#miscellaneous',
+    'facilities#general', 'facilities#prices', 'facilities#design&features', 'facilities#cleanliness', 'facilities#comfort', 'facilities#quality', 'facilities#miscellaneous',
+    'service#general',
+    'location#general',
+    'food&drinks#prices', 'food&drinks#quality', 'food&drinks#style&options', 'food&drinks#miscellaneous'
+]
 
-aspects = ["FOOD#PRICES", "FOOD#QUALITY", "FOOD#STYLE&OPTIONS",
-           "DRINKS#PRICES", "DRINKS#QUALITY", "DRINKS#STYLE&OPTIONS",
-           "RESTAURANT#PRICES", "RESTAURANT#GENERAL", "RESTAURANT#MISCELLANEOUS",
-           "SERVICE#GENERAL", "AMBIENCE#GENERAL", "LOCATION#GENERAL"]
-sentiments = ['dne', 'negative', 'neutral', 'positive'] # dne must be 0 for model compatibility
-all_keys = aspects # Use the `aspects` list directly as it defines all categories/columns
+sentiments = ['dne', 'negative', 'neutral', 'positive']
+all_keys = aspects
 
 # --- Helper Functions ---
 def get_file_hash(file_obj):
@@ -100,28 +105,6 @@ def get_file_hash(file_obj):
 
 def classify_sentence(sentence_text): # Renamed arg
     return full_pipeline.predict([sentence_text])[0].astype(np.uint)
-
-def multioutput_to_multilabel(y_sentiment_indices): # Renamed arg
-    if isinstance(y_sentiment_indices, pd.DataFrame):
-        y_sentiment_indices = y_sentiment_indices.values
-    nrow = y_sentiment_indices.shape[0]
-    ncol = y_sentiment_indices.shape[1] # Should be len(all_keys)
-    # 3 sentiment polarities (neg, neut, pos), 'dne' is absence
-    multilabel = np.zeros((nrow, 3 * ncol), dtype=bool) 
-    for i in range(nrow):
-        for j in range(ncol):
-            sentiment_idx = y_sentiment_indices[i, j]
-            if sentiment_idx != 0: # 0 is 'dne'
-                # sentiments[0] is 'dne', sentiments[1] is 'negative', etc.
-                # So, 'negative' (index 1) maps to multilabel position 0 for that aspect.
-                pos = j * 3 + (sentiment_idx - 1) 
-                multilabel[i, pos] = True
-    return multilabel
-
-def custom_f1_score(y_true, y_pred, average='micro', **kwargs):
-    y_true_ml = multioutput_to_multilabel(y_true)
-    y_pred_ml = multioutput_to_multilabel(y_pred)
-    return sklearn_f1_score(y_true_ml, y_pred_ml, average=average, **kwargs)
 
 def display_result(result_array):
     for key, sentiment_idx in zip(all_keys, result_array):
@@ -430,12 +413,39 @@ def annotation_tool():
         cols_buttons[3].button('Auto (All Docs) ⚡', on_click=auto_annotate_all_docs, key="auto_all_annot")
 
         ui_entities_structure = {
-            'FOOD': ["FOOD#PRICES", "FOOD#QUALITY", "FOOD#STYLE&OPTIONS"],
-            'DRINKS': ["DRINKS#PRICES", "DRINKS#QUALITY", "DRINKS#STYLE&OPTIONS"],
-            'RESTAURANT': ["RESTAURANT#PRICES", "RESTAURANT#GENERAL", "RESTAURANT#MISCELLANEOUS"],
-            'OTHERS (Service, Ambience, Location)': ["SERVICE#GENERAL", "AMBIENCE#GENERAL", "LOCATION#GENERAL"]
-        }
-
+            # Nhóm 1: Hotel
+            'HOTEL': [ 
+                "HOTEL#GENERAL", "HOTEL#PRICES", "HOTEL#DESIGN&FEATURES",
+                "HOTEL#CLEANLINESS", "HOTEL#COMFORT", "HOTEL#QUALITY", "HOTEL#MISCELLANEOUS"
+            ],
+            # Nhóm 2: Rooms
+            'ROOMS': [
+                "ROOMS#GENERAL","ROOMS#PRICES", "ROOMS#DESIGN&FEATURES", 
+                "ROOMS#CLEANLINESS", "ROOMS#COMFORT", "ROOMS#QUALITY","ROOMS#MISCELLANEOUS"
+            ],
+            # Nhóm 3: Room Amenities
+            'ROOM_AMENITIES': [
+                "ROOM_AMENITIES#GENERAL", "ROOM_AMENITIES#PRICES", "ROOM_AMENITIES#DESIGN&FEATURES",
+                "ROOM_AMENITIES#CLEANLINESS", "ROOM_AMENITIES#COMFORT", "ROOM_AMENITIES#QUALITY",
+                "ROOM_AMENITIES#MISCELLANEOUS"
+            ],
+             # Nhóm 4: Facilities
+            'FACILITIES': [
+                "FACILITIES#GENERAL", "FACILITIES#PRICES", "FACILITIES#DESIGN&FEATURES",
+                "FACILITIES#CLEANLINESS", "FACILITIES#COMFORT", "FACILITIES#QUALITY",
+                "FACILITIES#MISCELLANEOUS"
+            ],           
+            
+            # Nhóm 5: Food & Drinks
+            'FOOD & DRINKS': [
+                "FOOD&DRINKS#PRICES", "FOOD&DRINKS#QUALITY",
+                "FOOD&DRINKS#STYLE&OPTIONS", "FOOD&DRINKS#MISCELLANEOUS"
+            ],
+            # Nhóm 6: OTHERS (Service, Location)
+            'OTHERS (Service, Location)': [
+                "SERVICE#GENERAL", "LOCATION#GENERAL"
+            ]}
+        
         for entity_name, aspect_keys_for_entity in ui_entities_structure.items():
             with st.expander(entity_name, expanded=True):
                 num_aspects_in_entity = len(aspect_keys_for_entity)
@@ -467,60 +477,13 @@ def annotation_tool():
         st.info('Upload a text file (UTF-8 encoded) to begin annotation. Format: #ID Review text...')
 
 
-def compare_results_tool():
-    st.header("Compare Results")
-    st.write("Upload three annotated files to compare them.")
-
-    col1, col2, col3 = st.columns(3)
-    with col1: file1 = st.file_uploader("Annotator 1 Data (.txt)", type='txt', key="compare_file1")
-    with col2: file2 = st.file_uploader("Annotator 2 Data (.txt)", type='txt', key="compare_file2")
-    with col3: file3 = st.file_uploader("Goal Data (Ground Truth) (.txt)", type='txt', key="compare_file3")
-
-    if file1 and file2 and file3:
-        try:
-            df1, labeled1 = txt2df(file1)
-            df2, labeled2 = txt2df(file2)
-            df3, labeled3 = txt2df(file3)
-        except Exception as e:
-            st.error(f"Error parsing one of the files: {e}"); return
-
-        if not (labeled1 and labeled2 and labeled3):
-            st.error("All files for comparison must be in the labeled format."); return
-        
-        if not (len(df1) == len(df2) == len(df3) and \
-                df1['review'].astype(str).equals(df2['review'].astype(str)) and \
-                df1['review'].astype(str).equals(df3['review'].astype(str))):
-            st.error('Review texts or number of reviews differ. Ensure they are identical.'); return
-
-        mapping = {np.nan: 0, 'dne': 0, 'negative': 1, 'neutral': 2, 'positive': 3}
-        
-        try:
-            y1 = df1[all_keys].replace(mapping).fillna(0).astype(np.uint8).values
-            y2 = df2[all_keys].replace(mapping).fillna(0).astype(np.uint8).values
-            y3 = df3[all_keys].replace(mapping).fillna(0).astype(np.uint8).values
-        except KeyError as e: st.error(f"Missing expected aspect column: {e}."); return
-        except Exception as e: st.error(f"Error converting labels to numeric: {e}"); return
-
-        interagree = custom_f1_score(y1, y2)
-        benchmark1 = custom_f1_score(y3, y1)
-        benchmark2 = custom_f1_score(y3, y2)
-
-        st.metric(label="Inter-Annotator Agreement (F1 Micro)", value=f"{interagree:.4f}")
-        st.metric(label=f"{file1.name} vs Goal (F1 Micro)", value=f"{benchmark1:.4f}")
-        st.metric(label=f"{file2.name} vs Goal (F1 Micro)", value=f"{benchmark2:.4f}")
-
-        with st.expander(f"Data from: {file1.name}"): st.dataframe(df1)
-        with st.expander(f"Data from: {file2.name}"): st.dataframe(df2)
-        with st.expander(f"Data from: {file3.name}"): st.dataframe(df3)
-
 # --- Main App Navigation ---
-st.title('ABSA for Restaurant Reviews 🍣')
+st.title('ABSA for Hotel Reviews 🏨')
 
 app_modes = {
     "Classify Single Sentence": None, 
     "Pre-processing Tool": pre_processing_tool,
-    "Annotation Tool": annotation_tool,
-    "Compare Results": compare_results_tool
+    "Annotation Tool": annotation_tool
 }
 
 st.sidebar.title("Tools")
