@@ -1,0 +1,236 @@
+[
+  {
+    "review": "Vị trí thuận tiện, nhân viên thân thiện, phục vụ tốt MÌnh đi công tác kết hợp du lịch, đi sớm về khuya nên không có nhận xét gì nhiều.Khách sạn tuy nhỏ nhưng khá sạch sẽ, thoải mái, nhân viên phục vụ khá thân thiện và vị trí rất thuận tiện để du lịch 1 mình (ngay khu phố cổ HN)Nếu đã chọn, các bạn cũng nên cho Green Street 1 vé nhé ^^",
+    "annotations": [
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "hotel#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Giá phòng Vinpearl Resort tương đối cao so với chất lượng thật sự. Nhân viên phục vụ cũng chưa xứng đáng với chất lượng 5*.",
+    "annotations": [
+      {
+        "aspect": "rooms#prices",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "negative"
+      }
+    ]
+  },
+  {
+    "review": "Mình ở 1 resort khác nhưng không hài lòng nên ngày thứ 2 chuyển qua Mường Thanh qua hỗ trợ của Mytour Khách sạn mới xây, phòng rộng và đẹp, mình ở phòng 902 view biển rất đẹp, phục vụ tốt. Ăn sáng ok, tuy nhiên phục vụ có tới 9h sáng nên hơi cập rập. Mình sẽ chọn khách sạn này cho lần nghỉ sau!",
+    "annotations": [
+      {
+        "aspect": "hotel#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "food&drink#styles&options",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Khách sạn gần biển có thể đi lại dạo biển ngắm hoàng hôn. Phòng của khách sạn cũng thoáng mát sạch sẽ tiện nghi đầy đủ. Gia đình mình có chuyến nghỉ mát thật sảng khoái. Rất cám ơn Mytour đã cung cấp dịch vụ thật tuyệt! Mình sẽ luôn ủng hộ Mytour trong những chuyến đi tiếp theo.",
+    "annotations": [
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "room_amenities#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Chúng tôi chỉ ở lại Six sense, Ninh Vân Bay trong 5 đêm, nhưng chừng đó là đủ tuyệt vời. Chúng tôi đặt một biệt thự trên bãi biển, và tách biệt các khu biệt thự khác. Cảm giác ở vịnh đảo thích hơn. Bạn cảm thấy như ở trên miền đất của riêng bạn, với cây cối, đá, cát, nước trong xanh, cùng với chất lượng dịch vụ rất tốt. Toàn bộ Biệt thự được xây bằng vật liệu tự nhiên, bạn sẽ cảm thấu như được sống trong cảnh xa hoa, nhưng lại gần gửi với thiên nhiên. Bạn sẽ có một quản gia riêng, các dịch vụ sẽ cung cấp bạn hết mức để cho bạn một kỳ nghĩ tuyệt vời. Đây là một nơi rất tuyệt mà bạn nên đến !",
+    "annotations": [
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Cách đón tiếp niềm nở , phục vụ tận tình của nhân viên trong khách sạn Phòng hơi bí",
+    "annotations": [
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#comfort",
+        "sentiment": "negative"
+      }
+    ]
+  },
+  {
+    "review": "Bữa sáng ngon, nhân viên phục vụ tốt, phòng sạch sẽ. địa điểm thuận lợi di chuyển Mình đặt phòng có tick bathtub filter khi search. Khi tới nơi thì không có. Hỏi ra mới biết hạng phòng cao hơn mới có. Booking và khách sạn nên chú ý để sửa cho chuẩn thông tin.",
+    "annotations": [
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "room_amenities#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "hotel#miscellaneous",
+        "sentiment": "negative"
+      }
+    ]
+  },
+  {
+    "review": "Bữa sáng mình dùng Hủ Tiếu ngon. Giường nằm thoải mái. Vị trí thuận tiện.",
+    "annotations": [
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "room_amenities#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Mọi thứ đều tuyệt vời mình không có gì phải phàn nàn cả. Nhà nghỉ sạch sẽ phòng ốc gọn gàng, thuận tiện đi lại, nhân viên thân thiện tận tình, view đẹp có thể dễ dàng ngắm bình minh hoặc cảnh về đêm. Vì bạn mình bị mất dép cho khách du lịch khác đi nhầm do phải để dép ở khu vực chung",
+    "annotations": [
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#miscellaneous",
+        "sentiment": "negative"
+      }
+    ]
+  },
+  {
+    "review": "Ngay vị trí phố đi bộ khá đông vui, nhộn nhịp Chưa thật sự đạt chuẩn quá tốt so với chuẩn 4 sao như tiêu chuẩn đặt ra",
+    "annotations": [
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#quality",
+        "sentiment": "negative"
+      }
+    ]
+  }
+]
