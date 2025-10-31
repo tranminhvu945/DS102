@@ -29,8 +29,8 @@ Ngoài pre-processing tool, thì annotation tool có 2 loại.
     *   Đặt tệp này vào thư mục `./model/` (tạo thư mục `model` nếu chưa có).
 
 ## Chạy Ứng Dụng
-
-Sử dụng Streamlit để chạy ứng dụng:
+    * Tool gán nhãn thủ công: Chạy Go Live file index.html
+    * Tool gán nhãn bán tự động: Sử dụng Streamlit để chạy ứng dụng:
 
 ```bash
 streamlit run main.py
