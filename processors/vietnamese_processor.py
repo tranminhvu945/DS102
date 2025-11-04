@@ -142,7 +142,7 @@ class VietnameseTextCleaner:
     
     @staticmethod
     def remove_emoji(text):
-        return emoji.replace_emoji(text, '')
+        return emoji.replace_emoji(text, ' ')
     
     @staticmethod
     def remove_url(text):
@@ -209,10 +209,10 @@ class VietnameseTextPreprocessor:
             'rất tốt': ['perfect', '❤️', '😍'], 'dễ thương': ['cute'], 'yêu': ['iu'], 'thích': ['thik'], 
             'tốt': [
                 'gud', 'good', 'gút', 'tot', 'nice',
-                'hehe', 'hihi', 'haha', 'hjhj', 'thick', '^_^', ':)', '=)'
+                'hehe', 'hihi', 'haha', 'hjhj', 'thick', '^_^', ':)', '=)',
                 '👍', '🎉', '😀', '😂', '🤗', '😙', '🙂'
             ], 
-            'bình thường': ['bt', 'bthg'], 'hàg': ['hàng'], 
+            'bình thường': ['bt', 'bthg'], 'hàng': ['hàg'], 
             'không tốt':  ['lol', 'cc', 'huhu', ':(', '😔', '😓'],
             'tệ': ['sad', 'por', 'poor', 'bad'], 'giả mạo': ['fake'], 
             
@@ -246,12 +246,20 @@ class VietnameseTextPreprocessor:
         text = text.lower()
         text = VietnameseToneNormalizer.normalize_unicode(text)
         text = VietnameseToneNormalizer.normalize_sentence_typing(text)
-        text = VietnameseTextCleaner.process_text(text)
         text = self.normalize_teencodes(text)
+        text = VietnameseTextCleaner.process_text(text)
         return self.word_segment(text)
     
     def process_batch(self, texts):
         return [self.process_text(text) for text in texts]
+    
+    def preprocess_dataframe(self, df, text_col, out_col='review_clean'):
+        s = df[text_col]
+        cleaned = [self.process_text(x) for x in s]
+        out = df.copy()
+        out[out_col] = cleaned
+        out = out.drop(columns=[text_col])
+        return out
     
     def close_vncorenlp(self):
         if self.word_segmenter: 
@@ -270,8 +278,8 @@ if __name__ == '__main__':
         'nhắn tin': ['nt', 'ib'], 'trả lời': ['tl', 'trl', 'rep'], 
         'feedback': ['fback', 'fedback'], 'sử dụng': ['sd'], 'xài': ['sài'], 
     }
-    
-    preprocessor = VietnameseTextPreprocessor(vncorenlp_dir='./VnCoreNLP', extra_teencodes=extra_teencodes)
+
+    preprocessor = VietnameseTextPreprocessor(vncorenlp_dir='./processors/VnCoreNLP', extra_teencodes=extra_teencodes)
     sample_texts = [
         'Ga giường không sạch, nhân viên quên dọn phòng một ngày. Chất lựơng "ko" đc thỏai mái 😔',
         'Cám ơn Chudu24 rất nhiềuGia đình tôi có 1 kỳ nghỉ vui vẻ.Resort Bình Minh nằm ở vị trí rất đẹp, theo đúng tiêu chuẩn, còn về ăn sáng thì wa dở, chỉ có 2,3 món để chọn',
@@ -282,3 +290,6 @@ if __name__ == '__main__':
     preprocessed_texts = preprocessor.process_batch(sample_texts)
     preprocessor.close_vncorenlp()
     print(preprocessed_texts)
+    
+
+    
