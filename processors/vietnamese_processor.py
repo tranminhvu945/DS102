@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 import emoji
 import regex as re
 from vncorenlp import VnCoreNLP
@@ -187,8 +188,8 @@ class VietnameseTextPreprocessor:
 
     def _load_vncorenlp(self):
         jar_path = os.path.join(self.vncorenlp_dir, 'VnCoreNLP-1.2.jar')
-        vocab_path = os.path.join(self.vncorenlp_dir, 'vi-vocab')
-        rdr_path = os.path.join(self.vncorenlp_dir, 'wordsegmenter.rdr')
+        vocab_path = os.path.join(self.vncorenlp_dir, 'models', 'wordsegmenter', 'vi-vocab')
+        rdr_path = os.path.join(self.vncorenlp_dir, 'models', 'wordsegmenter','wordsegmenter.rdr')
 
         missing = [p for p in (jar_path, vocab_path, rdr_path) if not os.path.exists(p)]
         if missing:
@@ -250,14 +251,11 @@ class VietnameseTextPreprocessor:
         text = VietnameseTextCleaner.process_text(text)
         return self.word_segment(text)
     
-    def process_batch(self, texts):
-        return [self.process_text(text) for text in texts]
-    
     def preprocess_dataframe(self, df, text_col, out_col='review_clean'):
         s = df[text_col]
         cleaned = [self.process_text(x) for x in s]
         out = df.copy()
-        out[out_col] = cleaned
+        out.insert(1, out_col, cleaned)
         out = out.drop(columns=[text_col])
         return out
     
@@ -280,16 +278,15 @@ if __name__ == '__main__':
     }
 
     preprocessor = VietnameseTextPreprocessor(vncorenlp_dir='./processors/VnCoreNLP', extra_teencodes=extra_teencodes)
-    sample_texts = [
-        'Ga giường không sạch, nhân viên quên dọn phòng một ngày. Chất lựơng "ko" đc thỏai mái 😔',
-        'Cám ơn Chudu24 rất nhiềuGia đình tôi có 1 kỳ nghỉ vui vẻ.Resort Bình Minh nằm ở vị trí rất đẹp, theo đúng tiêu chuẩn, còn về ăn sáng thì wa dở, chỉ có 2,3 món để chọn',
-        'Giá cả hợp líĂn uống thoả thíchGiữ xe miễn phíKhông gian bờ kè thoáng mát Có phòng máy lạnhMỗi tội lúc quán đông thì đợi hơi lâu',
-        'May lần trước ăn mì k hà, hôm nay ăn thử bún bắp bò. Có chả tôm viên ăn lạ lạ. Tôm thì k nhiều, nhưng vẫn có tôm thật ở nhân bên trong. ',
-        'Ngồi ăn Cơm nhà *tiền thân là quán Bão* Phần vậy là 59k nha. Trưa từ 10h-14h, chiều từ 16h-19h. À,có sữa hạt sen ngon lắmm. #food #foodpic #foodporn #foodholic #yummy #deliciuous'
-    ]
-    preprocessed_texts = preprocessor.process_batch(sample_texts)
-    preprocessor.close_vncorenlp()
-    print(preprocessed_texts)
     
+    dataset = ['train', 'dev', 'test']
+    
+    for i in range(1, 4):
+        df = pd.read_csv(f"D:/DS102/VLSP2018_Hotel/{i}-VLSP2018-SA-Hotel-{dataset[i-1]}.csv")
+        df_clean = preprocessor.preprocess_dataframe(df, text_col='Review', out_col='review_clean')
+        # save to csv
+        df_clean.to_csv(f"D:/DS102/VLSP2018_Hotel/Preprocessed/{i}-VLSP2018-SA-Hotel-{dataset[i-1]}-clean.csv", index=False)
+
+    preprocessor.close_vncorenlp()
 
     
