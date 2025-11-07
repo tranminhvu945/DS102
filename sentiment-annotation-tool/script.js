@@ -220,7 +220,7 @@ function importAnnotations() {
   const reader = new FileReader()
   reader.onload = (e) => {
     importedReviews = e.target.result
-      .split(/\n#\d+/)
+      .split(/(?:^|\n)#\d+/)
       .map((s) => s.trim())
       .filter((s) => s)
 
