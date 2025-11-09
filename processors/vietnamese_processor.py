@@ -3,6 +3,7 @@ import pandas as pd
 import emoji
 import regex as re
 from vncorenlp import VnCoreNLP
+from sklearn.base import BaseEstimator, TransformerMixin
 
 # VietnameseToneNormalizer : Chuẩn hóa Unicode (ví dụ: lựơng=> lượng, thỏai mái=> thoải mái).
 class VietnameseToneNormalizer:
@@ -220,6 +221,15 @@ class VietnameseTextPreprocessor:
             'quá': ['wa', 'wá', 'qá'], 'được': ['đx', 'dk', 'dc', 'đk', 'đc'], 
             'với': ['vs'], 'gì': ['j'], 'rồi': ['r'], 'mình': ['m', 'mik'], 
             'thời gian': ['time'], 'giờ': ['h'], 
+            
+            'khách sạn': ['ks'], 'nhà hàng': ['nhahang'], 'nhân viên': ['nv'],
+            'cửa hàng': ['store', 'sop', 'shopE', 'shop'], 
+            'sản phẩm': ['sp', 'product'], 'hàng': ['hàg'],
+            'giao hàng': ['ship', 'delivery', 'síp'], 'đặt hàng': ['order'], 
+            'chuẩn chính hãng': ['authentic', 'aut', 'auth'], 'hạn sử dụng': ['date', 'hsd'],
+            'điện thoại': ['dt'],  'facebook': ['fb', 'face'],  
+            'nhắn tin': ['nt', 'ib'], 'trả lời': ['tl', 'trl', 'rep'], 
+            'feedback': ['fback', 'fedback'], 'sử dụng': ['sd'], 'xài': ['sài'],
         }
         if self.extra_teencodes: 
             for key, values in self.extra_teencodes.items():
@@ -265,19 +275,50 @@ class VietnameseTextPreprocessor:
             self.word_segmenter.close()
 
 
-if __name__ == '__main__':
-    extra_teencodes = { 
-        'khách sạn': ['ks'], 'nhà hàng': ['nhahang'], 'nhân viên': ['nv'],
-        'cửa hàng': ['store', 'sop', 'shopE', 'shop'], 
-        'sản phẩm': ['sp', 'product'], 'hàng': ['hàg'],
-        'giao hàng': ['ship', 'delivery', 'síp'], 'đặt hàng': ['order'], 
-        'chuẩn chính hãng': ['authentic', 'aut', 'auth'], 'hạn sử dụng': ['date', 'hsd'],
-        'điện thoại': ['dt'],  'facebook': ['fb', 'face'],  
-        'nhắn tin': ['nt', 'ib'], 'trả lời': ['tl', 'trl', 'rep'], 
-        'feedback': ['fback', 'fedback'], 'sử dụng': ['sd'], 'xài': ['sài'], 
-    }
+class CustomPreprocessorTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self, use_vncorenlp=False,vncorenlp_dir='./VnCoreNLP', extra_teencodes=None):
+        self.use_vncorenlp = use_vncorenlp
+        self.vncorenlp_dir = vncorenlp_dir
+        self.extra_teencodes = extra_teencodes
+        self.preprocessor = None
+        
+    def _ensure_pre(self):
+        if self.use_vncorenlp and self.preprocessor is None:
+            self.preprocessor = VietnameseTextPreprocessor(
+                vncorenlp_dir=self.vncorenlp_dir,
+                extra_teencodes=self.extra_teencodes
+            )      
+              
+    def fit(self, X, y=None):
+        return self
 
-    preprocessor = VietnameseTextPreprocessor(vncorenlp_dir='./processors/VnCoreNLP', extra_teencodes=extra_teencodes)
+    def transform(self, X):
+        self._ensure_pre()
+        s = pd.Series(X).fillna("").astype(str)
+
+        if self.preprocessor is not None:
+            result = s.map(self.preprocessor.process_text).tolist()
+        else:
+            raise ValueError("Preprocessor is not initialized.")
+        
+        self.close_vncorenlp()
+        return result
+
+    def close_vncorenlp(self):
+        if self.preprocessor:
+            self.preprocessor.close_vncorenlp()
+            
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        state["preprocessor"] = None
+        return state
+
+    def __del__(self):
+        self.close_vncorenlp()
+
+if __name__ == '__main__':
+
+    preprocessor = VietnameseTextPreprocessor(vncorenlp_dir='./processors/VnCoreNLP')
     
     dataset = ['train', 'dev', 'test']
     
@@ -288,5 +329,3 @@ if __name__ == '__main__':
         df_clean.to_csv(f"D:/DS102/VLSP2018_Hotel/Preprocessed/{i}-VLSP2018-SA-Hotel-{dataset[i-1]}-clean.csv", index=False)
 
     preprocessor.close_vncorenlp()
-
-    
