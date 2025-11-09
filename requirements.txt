@@ -1,0 +1,13 @@
+emoji
+pandas
+numpy
+requests
+scikit-learn
+streamlit
+flashtext
+optuna
+regex
+vncorenlp
+torch 
+transformers 
+gensim

@@ -1,0 +1,307 @@
+[
+  {
+    "review": "Chúng tôi không cảm thấy thoải mái vì ở chỉ 1 ngày mà cúp điện 3,4 lần . Thang máy thì quá nóng và quá chậm chạp. Bữa sáng tuyệt. Phòng ngủ tiện nghi đẹp. Nhân viên phục phụ rất tốt.",
+    "annotations": [
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#comfort",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "facilities#quality",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "facilities#comfort",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "room_amenities#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Không có gì để chê. Nhân viên vui vẻ.",
+    "annotations": [
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Giường rất êm. Đặc biệt thích mùi ở sảnh khách sạn, thơm lắm nhé giống hương dưa gang ấy. Phục vụ phòng nhanh và chu đáo. Reception lịch sự và dễ mến. Phòng như hình. Đáng giá tiền.",
+    "annotations": [
+      {
+        "aspect": "room_amenities#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#prices",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Bữa sáng rất ngon, giường to, rộng và rất thoải mái, nhân viên thân thiện, nhiệt tình.",
+    "annotations": [
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "room_amenities#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "room_amenities#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Khách sạn đẹp, sang trọng. Nhân viên thân thiện, nhiệt tình. Phòng rất sạch sẽ.",
+    "annotations": [
+      {
+        "aspect": "hotel#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#cleanliness",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Phòng ở sạch sẽ, nhân viên thân thiện. Sẽ quay trở lại",
+    "annotations": [
+      {
+        "aspect": "rooms#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "bữa sáng tuyệt với. mọi thứ ở đây gàn như hoàn hảo.  sẽ quay lại vào lần sau",
+    "annotations": [
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Không có bữa sáng phục vụ trong khách sạn. Khách sạn mới và rất sạch sẽ. Phòng có cửa sổ lớn và thoáng. Nhân viên phục vụ nhiệt tình. Địa điểm gần với sân bay TSN.",
+    "annotations": [
+      {
+        "aspect": "food&drink#styles&options",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "hotel#cleanliness",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Không có gì phàn nàn. Resort rất đẹp, yên tĩnh, mọi thứ đều rất tuyệt",
+    "annotations": [
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "hotel#design&features",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "không có nhiều hoạt động cho trẻ nhỏ. Nếu có thêm kid's club thì gđ mình sẽ trở lại đây thường xuyên hơn.",
+    "annotations": [
+      {
+        "aspect": "facilities#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "hotel#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Vòi tắm cũ chảy nước. Ăn sáng không ngon. Chỗ ngồi ngoài trời bài trí không đẹp. Nói chung thiếu gì đó nổi trội khiến cho du khác ấn tượng để nhất định phải đến lần tiếp theo. Nhân viên thân thiện tận tinh.",
+    "annotations": [
+      {
+        "aspect": "room_amenities#design&features",
+        "sentiment": "negative"
+      },
+      { "aspect": "hotel#general", 
+        "sentiment": "negative" },
+      {
+        "aspect": "food&drink#quality",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "facilities#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Bồn cầu toilet không có vòi xịt. Giường rất thoải mái. Phòng sạch sẽ",
+    "annotations": [
+      {
+        "aspect": "room_amenities#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "room_amenities#comfort",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#cleanliness",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Internet quá yếu. Ở trong phòng mà phải mò ra tận cửa để bắt sóng!!! Phòng xinh, tiện nghi phòng tắm tuyệt, đặc biệt nhân viên phục vụ tận tâm nhiệt tình!",
+    "annotations": [
+      {
+        "aspect": "facilities#quality",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "rooms#design&features",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "room_amenities#quality",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "service#general",
+        "sentiment": "positive"
+      }
+    ]
+  },
+  {
+    "review": "Cách âm chưa tốt, tiếng từ hành lang hoặc từ tầng trên ảnh hưởng trong phòng. Địa điểm là trung tâm Sài Gòn, gần nhiều nơi nổi tiếng.",
+    "annotations": [
+      {
+        "aspect": "rooms#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "positive"
+      },
+      {
+        "aspect": "rooms#comfort",
+        "sentiment": "negative"
+      }
+    ]
+  },
+  {
+    "review": "Bữa sáng nghèo nàn, chỗ ăn ăn sáng nhỏ lại để bàn to như bàn ăn tập thể ko hợp lý và đẹp mắt. giường ngủ bé phòng bí, ko có bàn ghế ngồi uống nước. Địa điểm khách sạn xa đi lại gọi xe ko tiện. phòng nhỏ nên để 1 giường cho thoáng, bố trí bàn nhỏ trong phòng ngồi uống nước. Chỗ bàn ăn nên để một số bàn tròn nhỏ cho 2 hoặc 4 người",
+    "annotations": [
+      {
+        "aspect": "food&drink#styles&options",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "facilities#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "room_amenities#design&features",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "rooms#comfort",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "location#general",
+        "sentiment": "negative"
+      },
+      {
+        "aspect": "rooms#design&features",
+        "sentiment": "negative"
+      }
+    ]
+  }
+]
