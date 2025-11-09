@@ -15,6 +15,10 @@ from functools import partial
 from flashtext import KeywordProcessor
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from processors.vietnamese_processor import (
+    VietnameseToneNormalizer, VietnameseTextCleaner, VietnameseTextPreprocessor, CustomPreprocessorTransformer
+)
+
 import hashlib # use file content hashing
 
 # --- Global Definitions and Setup ---
@@ -25,54 +29,6 @@ st.set_page_config(
 )
 
 HASHTAG = 'hashtag'
-
-# --- Text Cleaning Classes (Largely Unchanged) ---
-class TextCleanerBase(BaseEstimator, TransformerMixin):
-    def __init__(self):
-        super().__init__()
-        def remove_emoji_func(text): # Renamed to avoid conflict with emoji module
-            return ''.join(char for char in text if not emoji.is_emoji(char))
-        self.remove_emoji      = remove_emoji_func
-        self.normalize_unicode = partial(unicodedata.normalize, 'NFC')
-
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X):
-        if not isinstance(X, pd.Series):
-            X = pd.Series(X)
-        return X.apply(str.lower) \
-                .apply(self.remove_emoji) \
-                .apply(self.normalize_unicode)
-
-class TextCleaner(TextCleanerBase):
-    def __init__(self):
-        super().__init__()
-        hashtag_re = re.compile('#\S+') # Renamed to avoid conflict
-        pricetag_re_str = '((?:(?:\d+[,\.]?)+) ?(?:nghìn đồng|đồng|k|vnd|d|đ))' # explicit string
-        pricetag_re = re.compile(pricetag_re_str)
-        specialchar_re_str = r"[\"#$%&'()*+,\-.\/\\:;<=>@[\]^_`{|}~\n\r\t]" # explicit string
-        specialchar_re = re.compile(specialchar_re_str)
-        rules = {
-            "òa":["oà"], "óa":["oá"], "ỏa":["oả"], "õa":["oã"], "ọa":["oạ"],
-            "òe":["oè"], "óe":["oé"], "ỏe":["oẻ"], "õe":["oẽ"], "ọe":["oẹ"],
-            "ùy":["uỳ"], "úy":["uý"], "ủy":["uỷ"], "ũy":["uỹ"], "ụy":["uỵ"],
-            "ùa":["uà"], "úa":["uá"], "ủa":["uả"], "ũa":["uã"], "ụa":["uạ"],
-            "xảy":["xẩy"], "bảy":["bẩy"], "gãy":["gẫy"],
-            "không":["k", "hông", "ko", "khong"]}
-        kp = KeywordProcessor(case_sensitive=False)
-        kp.add_keywords_from_dict(rules)
-        self.autocorrect          = kp.replace_keywords
-        self.normalize_pricetag   = partial(pricetag_re.sub, 'giá_tiền')
-        self.normalize_hashtag    = partial(hashtag_re.sub, HASHTAG)
-        self.remove_specialchar   = partial(specialchar_re.sub, '')
-
-    def transform(self, X):
-        X_transformed = super().transform(X) # Use a different variable name to avoid confusion
-        return X_transformed.apply(self.autocorrect) \
-                .apply(self.normalize_pricetag) \
-                .apply(self.normalize_hashtag) \
-                .apply(self.remove_specialchar)
 
 # --- Model and Constants ---
 try:
@@ -86,16 +42,16 @@ except Exception as e:
     st.stop()
 
 aspects = [
-    'hotel#general', 'hotel#prices', 'hotel#design&features', 'hotel#cleanliness', 'hotel#comfort', 'hotel#quality', 'hotel#miscellaneous',
-    'rooms#general', 'rooms#prices', 'rooms#design&features', 'rooms#cleanliness', 'rooms#comfort', 'rooms#quality', 'rooms#miscellaneous',
-    'room_amenities#general', 'room_amenities#prices', 'room_amenities#design&features', 'room_amenities#cleanliness', 'room_amenities#comfort', 'room_amenities#quality', 'room_amenities#miscellaneous',
-    'facilities#general', 'facilities#prices', 'facilities#design&features', 'facilities#cleanliness', 'facilities#comfort', 'facilities#quality', 'facilities#miscellaneous',
-    'service#general',
-    'location#general',
-    'food&drinks#prices', 'food&drinks#quality', 'food&drinks#style&options', 'food&drinks#miscellaneous'
+    'facilities#cleanliness','facilities#comfort','facilities#design&features','facilities#general','facilities#miscellaneous','facilities#prices',
+    'facilities#quality','food&drinks#miscellaneous','food&drinks#prices','food&drinks#quality','food&drinks#style&options',
+    'hotel#cleanliness','hotel#comfort','hotel#design&features','hotel#general','hotel#miscellaneous','hotel#prices',
+    'hotel#quality','location#general','rooms#cleanliness','rooms#comfort','rooms#design&features','rooms#general',
+    'rooms#miscellaneous','rooms#prices','rooms#quality','room_amenities#cleanliness','room_amenities#comfort',
+    'room_amenities#design&features','room_amenities#general','room_amenities#miscellaneous','room_amenities#prices',
+    'room_amenities#quality','service#general'
 ]
 
-sentiments = ['dne', 'negative', 'neutral', 'positive']
+sentiments = ['dne', 'positive', 'negative', 'neutral']
 all_keys = aspects
 
 # --- Helper Functions ---
@@ -222,7 +178,7 @@ def df2txt(df_to_export):
         decoded_label_str = label_decoder(label_series)
         
         rows_output.append(f'#{test_id}')
-        rows_output.append(review_text)
+        rows_output.append(str(review_text).strip())
         if decoded_label_str and decoded_label_str != "No labels": 
             rows_output.append(decoded_label_str)
             rows_output.append('') 
@@ -247,7 +203,7 @@ def pre_processing_tool():
         st.subheader("Original Reviews (first 5)")
         st.dataframe(raw_df[['review']].head())
 
-        text_cleaner_instance = TextCleaner() # Create instance
+        text_cleaner_instance = CustomPreprocessorTransformer(use_vncorenlp=True, vncorenlp_dir="./processors/VnCoreNLP")
 
         if st.button("Pre-process Data", key="preprocess_btn"):
             with st.spinner("Processing..."):
@@ -414,36 +370,29 @@ def annotation_tool():
 
         ui_entities_structure = {
             # Nhóm 1: Hotel
-            'HOTEL': [ 
-                "HOTEL#GENERAL", "HOTEL#PRICES", "HOTEL#DESIGN&FEATURES",
-                "HOTEL#CLEANLINESS", "HOTEL#COMFORT", "HOTEL#QUALITY", "HOTEL#MISCELLANEOUS"
+            'hotel': [ 
+                "hotel#general", "hotel#prices", "hotel#design&features", "hotel#cleanliness", "hotel#comfort", "hotel#quality", "hotel#miscellaneous"
             ],
             # Nhóm 2: Rooms
-            'ROOMS': [
-                "ROOMS#GENERAL","ROOMS#PRICES", "ROOMS#DESIGN&FEATURES", 
-                "ROOMS#CLEANLINESS", "ROOMS#COMFORT", "ROOMS#QUALITY","ROOMS#MISCELLANEOUS"
+            'rooms': [
+                "rooms#general", "rooms#prices", "rooms#design&features", "rooms#cleanliness", "rooms#comfort", "rooms#quality", "rooms#miscellaneous"
             ],
             # Nhóm 3: Room Amenities
-            'ROOM_AMENITIES': [
-                "ROOM_AMENITIES#GENERAL", "ROOM_AMENITIES#PRICES", "ROOM_AMENITIES#DESIGN&FEATURES",
-                "ROOM_AMENITIES#CLEANLINESS", "ROOM_AMENITIES#COMFORT", "ROOM_AMENITIES#QUALITY",
-                "ROOM_AMENITIES#MISCELLANEOUS"
+            'room_amenities': [
+                "room_amenities#general", "room_amenities#prices", "room_amenities#design&features", "room_amenities#cleanliness", "room_amenities#comfort", "room_amenities#quality", "room_amenities#miscellaneous"
             ],
              # Nhóm 4: Facilities
-            'FACILITIES': [
-                "FACILITIES#GENERAL", "FACILITIES#PRICES", "FACILITIES#DESIGN&FEATURES",
-                "FACILITIES#CLEANLINESS", "FACILITIES#COMFORT", "FACILITIES#QUALITY",
-                "FACILITIES#MISCELLANEOUS"
+            'facilities': [
+                "facilities#general", "facilities#prices", "facilities#design&features", "facilities#cleanliness", "facilities#comfort", "facilities#quality", "facilities#miscellaneous"
             ],           
             
             # Nhóm 5: Food & Drinks
-            'FOOD & DRINKS': [
-                "FOOD&DRINKS#PRICES", "FOOD&DRINKS#QUALITY",
-                "FOOD&DRINKS#STYLE&OPTIONS", "FOOD&DRINKS#MISCELLANEOUS"
+            'food&drinks': [
+                "food&drinks#prices", "food&drinks#quality", "food&drinks#style&options", "food&drinks#miscellaneous"
             ],
             # Nhóm 6: OTHERS (Service, Location)
             'OTHERS (Service, Location)': [
-                "SERVICE#GENERAL", "LOCATION#GENERAL"
+                "service#general", "location#general"
             ]}
         
         for entity_name, aspect_keys_for_entity in ui_entities_structure.items():
@@ -453,15 +402,13 @@ def annotation_tool():
                 cols_aspects = st.columns(num_aspects_in_entity)
                 
                 for i, aspect_key_radio in enumerate(aspect_keys_for_entity):
-                    selected_sentiment_str = state.get(aspect_key_radio, 'dne')
-                    try: current_idx = sentiments.index(selected_sentiment_str)
-                    except ValueError: current_idx = 0 
+                    state.setdefault(aspect_key_radio, 'dne')
 
                     with cols_aspects[i]:
                         attr_label = aspect_key_radio.split('#')[-1]
                         st.radio(
                             label=attr_label, options=sentiments, key=aspect_key_radio,
-                            index=current_idx, on_change=on_sentiment_change_annot, args=(aspect_key_radio,)
+                            on_change=on_sentiment_change_annot, args=(aspect_key_radio,)
                         )
         
         st.subheader("Annotation Data Table")
