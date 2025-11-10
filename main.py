@@ -218,7 +218,8 @@ def pre_processing_tool():
             rows = []
             for i, review_text in enumerate(df_with_review_col['review']):
                 rows.append(f"#{i+1}")
-                rows.append(str(review_text)) 
+                rows.append(str(review_text).strip())
+                rows.append("")
             return "\n".join(rows)
 
         txt_data = df_to_txt_unlabeled(st.session_state.processed_df_for_download)
@@ -316,6 +317,11 @@ def annotation_tool():
         doc_id = state.doc_id_annot
         review_text = state.df_annot.loc[doc_id, 'review']
         
+        # Ép kiểu cột thành 'object' trước khi gán chuỗi
+        for key_col in all_keys:
+            if state.df_annot[key_col].dtype != 'object':
+                state.df_annot[key_col] = state.df_annot[key_col].astype('object')
+        
         predicted_sentiments_indices = classify_sentence(review_text)
         
         for i, aspect_key_model in enumerate(all_keys):
@@ -326,6 +332,11 @@ def annotation_tool():
     def auto_annotate_all_docs():
         state = st.session_state
         if state.df_annot is None or state.df_annot.empty: return
+        
+        # Ép kiểu cột thành 'object' trước khi gán chuỗi
+        for key_col in all_keys:
+            if state.df_annot[key_col].dtype != 'object':
+                state.df_annot[key_col] = state.df_annot[key_col].astype('object')
 
         reviews_to_predict = state.df_annot['review']
         all_predictions_indices = full_pipeline.predict(reviews_to_predict)
