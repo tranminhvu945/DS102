@@ -320,12 +320,12 @@ if __name__ == '__main__':
 
     preprocessor = VietnameseTextPreprocessor(vncorenlp_dir='./processors/VnCoreNLP')
     
-    dataset = ['train', 'dev', 'test']
+    dataset = ['train', 'val', 'test']
     
     for i in range(1, 4):
-        df = pd.read_csv(f"D:/DS102/VLSP2018_Hotel/{i}-VLSP2018-SA-Hotel-{dataset[i-1]}.csv")
-        df_clean = preprocessor.preprocess_dataframe(df, text_col='Review', out_col='review_clean')
+        df = pd.read_csv(f"D:/DS102/Data/{i}-{dataset[i-1]}.csv")
+        df_clean = preprocessor.preprocess_dataframe(df, text_col='review', out_col='review_clean')
         # save to csv
-        df_clean.to_csv(f"D:/DS102/VLSP2018_Hotel/Preprocessed/{i}-VLSP2018-SA-Hotel-{dataset[i-1]}-clean.csv", index=False)
+        df_clean.to_csv(f"D:/DS102/Data/Preprocessed/{i}-{dataset[i-1]}-clean.csv", index=False)
 
     preprocessor.close_vncorenlp()
