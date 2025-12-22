@@ -113,78 +113,66 @@ Dự án thực nghiệm trên hai nhóm mô hình chính:
 
 Bảng dưới đây so sánh hiệu suất (F1-score) giữa các mô hình trên tập Validation và Test set.
 
-<!-- | Approach | Feature | Model | Val (F1) | Test (F1) |
-| :---: | :---: | :--- | :---: | :---: |
-| **Machine Learning** | **TF-IDF** | Logistic Regression | $\textcolor{green}{68.82}$ | $\textcolor{green}{70.33}$ |
-| | | Linear SVC | 68.27 | 70.16 |
-| | | Non-Linear SVC | 64.47 | 65.95 |
-| | | Multinomial NB | 63.03 | 63.08 |
-| | | Random Forest | 67.23 | 68.78 |
-| | **PhoW2V** | Logistic Regression | 63.63 | 65.25 |
-| | | Linear SVC | 64.11 | 64.32 |
-| | | Non-Linear SVC | 63.98 | 64.36 |
-| **Deep Learning** | **-** | **PhoBERT** | $\textcolor{red}{72.29}$ | $\textcolor{red}{73.83}$ | -->
-
 <table>
   <thead>
     <tr>
-      <th>Approach</th>
-      <th>Feature</th>
-      <th>Model</th>
-      <th>Val (F1)</th>
-      <th>Test (F1)</th>
+      <th align="center">Approach</th>
+      <th align="center">Feature</th>
+      <th align="center">Model</th>
+      <th align="center">Val (F1)</th>
+      <th align="center">Test (F1)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td rowspan="8"><b>Machine Learning</b></td>
-      <td rowspan="5"><b>TF-IDF</b></td>
-      <td>Logistic Regression</td>
-      <td><span style="color: green"><b>68.82</b></span></td>
-      <td><span style="color: green"><b>70.33</b></span></td>
+      <td rowspan="8" align="center"><b>Machine Learning</b></td>
+      <td rowspan="5" align="center"><b>TF-IDF</b></td>
+      <td align="center">Logistic Regression</td>
+      <td align="center"><span style="color: green"><b>68.82</b></span></td>
+      <td align="center"><span style="color: green"><b>70.33</b></span></td>
     </tr>
     <tr>
-      <td>Linear SVC</td>
-      <td>68.27</td>
-      <td>70.16</td>
+      <td align="center">Linear SVC</td>
+      <td align="center">68.27</td>
+      <td align="center">70.16</td>
     </tr>
     <tr>
-      <td>Non-Linear SVC</td>
-      <td>64.47</td>
-      <td>65.95</td>
+      <td align="center">Non-Linear SVC</td>
+      <td align="center">64.47</td>
+      <td align="center">65.95</td>
     </tr>
     <tr>
-      <td>Multinomial NB</td>
-      <td>63.03</td>
-      <td>63.08</td>
+      <td align="center">Multinomial NB</td>
+      <td align="center">63.03</td>
+      <td align="center">63.08</td>
     </tr>
     <tr>
-      <td>Random Forest</td>
-      <td>67.23</td>
-      <td>68.78</td>
+      <td align="center">Random Forest</td>
+      <td align="center">67.23</td>
+      <td align="center">68.78</td>
     </tr>
     <tr>
-      <td rowspan="3"><b>PhoW2V</b></td>
-      <td>Logistic Regression</td>
-      <td>63.63</td>
-      <td>65.25</td>
+      <td rowspan="3" align="center"><b>PhoW2V</b></td>
+      <td align="center">Logistic Regression</td>
+      <td align="center">63.63</td>
+      <td align="center">65.25</td>
     </tr>
     <tr>
-      <td>Linear SVC</td>
-      <td>64.11</td>
-      <td>64.32</td>
+      <td align="center">Linear SVC</td>
+      <td align="center">64.11</td>
+      <td align="center">64.32</td>
     </tr>
     <tr>
-      <td>Non-Linear SVC</td>
-      <td>63.98</td>
-      <td>64.36</td>
+      <td align="center">Non-Linear SVC</td>
+      <td align="center">63.98</td>
+      <td align="center">64.36</td>
     </tr>
     <tr>
-      <td><b>Deep Learning</b></td>
-      <td>-</td>
-      <td><b>PhoBERT</b></td>
-      <td><span style="color: red"><b>72.29</b></span></td>
-      <td><span style="color: red"><b>73.83</b></span></td>
+      <td align="center"><b>Deep Learning</b></td>
+      <td align="center">-</td>
+      <td align="center"><b>PhoBERT</b></td>
+      <td align="center"><span style="color: red"><b>72.29</b></span></td>
+      <td align="center"><span style="color: red"><b>73.83</b></span></td>
     </tr>
   </tbody>
 </table>
