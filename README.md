@@ -40,7 +40,7 @@ Chi tiết quy trình xây dựng mô hình từ dữ liệu thô.
 
 ## I. Data Collection & Labeling
 1.  **Nguồn dữ liệu:** [TripAdvisor Vietnam](https://www.tripadvisor.com.vn/)
-2.  **Guideline gán nhãn:** ![Guideline](./assets/Guidelines-ABSA-Hotel.pdf)
+2.  **Guideline gán nhãn:** [Guideline](./assets/Guidelines-ABSA-Hotel.pdf)
 3.  **Quy trình thực hiện:**
     * **Training Annotators:**
         ![Training Phase](./assets/training%20phase.jpg)
@@ -127,7 +127,7 @@ Bảng dưới đây so sánh hiệu suất (F1-score) giữa các mô hình tr�
     <tr>
       <td rowspan="8" align="center"><b>Machine Learning</b></td>
       <td rowspan="5" align="center"><b>TF-IDF</b></td>
-      <td align="center">Logistic Regression</td>
+      <td align="center"><b>Logistic Regression</b></td>
       <td align="center"><span style="color: green"><b>68.82</b></span></td>
       <td align="center"><span style="color: green"><b>70.33</b></span></td>
     </tr>
