@@ -50,7 +50,7 @@ Chi tiết quy trình xây dựng mô hình từ dữ liệu thô.
 ## II. Data Overview
 Thống kê bộ dữ liệu sau khi thu thập:
 
-| Dataset | No. Reviews | No. Aspect| Avg. Length | Vocab Size | Out of Vocab (vs Train) |
+| Dataset | No. Reviews | No. Aspect| Avg. Length | Vocab Size | No. words in Test/Val not in Train set |
 |:----------:|:--------:|:-------:|:-------:|:---------:|:---------:|
 | [Train](./Data/Original/1-train.txt) | 1658 | 7109 | 54 | 5994 | - |
 | [Val](./Data/Original/2-val.txt) | 359 | 1558 | 58 | 2558 | 689 |
