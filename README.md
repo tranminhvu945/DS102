@@ -1,7 +1,7 @@
 # Hotel Aspect-Based Sentiment Analysis (ABSA)
 Repo này trình bày chi tiết toàn bộ quy trình từ thu thập dữ, gán nhãn dữ liệu, tiền xử lý dữ liệu, đánh giá các mô hình Machine Learning và Deep Learning.
-* Slide: [Link slide]()
-* Report: [Link report]()
+* Slide: [Link slide](./DS102_Slide.pdf)
+* Report: [Report Tiếng Việt](./DS102_Nhom6.pdf) & [Report Tiếng Anh](./DS102_Nhom6_English.pdf)
 
 # Part 1: The Tool & Installation
 Giới thiệu về ứng dụng web hỗ trợ gán nhãn và phân tích.
@@ -42,7 +42,7 @@ Chi tiết quy trình xây dựng mô hình từ dữ liệu thô.
 
 ## I. Data Collection & Labeling
 1.  **Nguồn dữ liệu:** [TripAdvisor Vietnam](https://www.tripadvisor.com.vn/)
-2.  **Guideline gán nhãn:** [Guideline](./assets/Guidelines-ABSA-Hotel.pdf)
+2.  **Guideline gán nhãn:** [Guideline](./Guidelines-ABSA-Hotel.pdf)
 3.  **Quy trình thực hiện:**
     * **Training Annotators:**
         ![Training Phase](./assets/training%20phase.jpg)
@@ -171,7 +171,7 @@ Bảng dưới đây so sánh hiệu suất (F1-score) giữa các mô hình tr�
     </tr>
     <tr>
       <td align="center"><b>Deep Learning</b></td>
-      <td align="center">-</td>
+      <td align="center">Last hidden state</td>
       <td align="center"><b>PhoBERT</b></td>
       <td align="center"><span style="color: red"><b>72.29</b></span></td>
       <td align="center"><span style="color: red"><b>73.83</b></span></td>
