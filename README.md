@@ -1,7 +1,7 @@
 # Hotel Aspect-Based Sentiment Analysis (ABSA)
 Repo này trình bày chi tiết toàn bộ quy trình từ thu thập dữ, gán nhãn dữ liệu, tiền xử lý dữ liệu, đánh giá các mô hình Machine Learning và Deep Learning.
 * Slide: [Link slide](./Report//DS102_Slide.pdf)
-* Report: [Report Tiếng Việt](./Report/DS102_Nhom6.pdf) & [Report Tiếng Anh](./Report/DS102_Nhom6_English.pdf)
+* Report: [Report Tiếng Việt](./Report/DS102_Nhom6.pdf) & [Report Tiếng Anh](./Report/DS102_Nhom6__English.pdf)
 
 # Part 1: The Tool & Installation
 Giới thiệu về ứng dụng web hỗ trợ gán nhãn và phân tích.
